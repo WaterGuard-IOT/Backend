@@ -1,6 +1,7 @@
 package org.waterguard.waterguard.config;
 
 
+import org.springframework.security.config.Customizer;
 import org.waterguard.waterguard.auth.jwt.JwtAuthenticationFilter;
 import org.waterguard.waterguard.auth.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/**",
