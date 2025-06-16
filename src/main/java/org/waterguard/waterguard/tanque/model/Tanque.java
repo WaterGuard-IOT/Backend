@@ -5,6 +5,8 @@ import org.waterguard.waterguard.auth.model.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,9 +22,23 @@ public class Tanque {
     @JsonBackReference
     private Usuario usuario;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private CalidadAgua calidad;
+    private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private NivelAgua nivel;
+    private double capacity;
+
+    private double currentLevel;
+
+    private double criticalLevel;
+
+    private double optimalLevel;
+
+    private LocalDateTime lastUpdated;
+
+    private String status; // e.g., "normal", "warning"
+
+    private boolean pumpActive;
+
+    @Embedded
+    private Location location;
+
 }

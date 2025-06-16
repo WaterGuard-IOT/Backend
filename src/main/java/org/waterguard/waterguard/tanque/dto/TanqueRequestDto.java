@@ -1,14 +1,15 @@
 package org.waterguard.waterguard.tanque.dto;
 
-import org.waterguard.waterguard.tanque.model.CalidadAgua;
-import org.waterguard.waterguard.tanque.model.NivelAgua;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 
 @Data
-public class TanqueResponse {
-    private Long tanqueId;
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class TanqueRequestDto {
     private String name;
     private double capacity;
     private double currentLevel;

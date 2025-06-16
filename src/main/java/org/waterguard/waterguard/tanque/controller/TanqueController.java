@@ -30,14 +30,28 @@ public class TanqueController {
     public ResponseEntity<Tanque> obtenerTanque(@PathVariable Long tanqueId) {
         return ResponseEntity.ok(tanqueService.obtenerPorId(tanqueId));
     }
-
-    @PostMapping("/tanque/{tanqueId}/calidad")
-    public ResponseEntity<Tanque> registrarCalidad(@PathVariable Long tanqueId, @RequestBody CalidadAguaRequest request) {
-        return ResponseEntity.ok(tanqueService.registrarCalidad(tanqueId, request));
+    @PostMapping("/tanque")
+    public ResponseEntity<Tanque> createTank(@RequestBody TanqueRequestDto dto) {
+        Tanque tank = tanqueService.createTanqueFromDto(dto);
+        return ResponseEntity.ok(tank);
     }
-
-    @PostMapping("/tanque/{tanqueId}/nivel")
-    public ResponseEntity<Tanque> registrarNivel(@PathVariable Long tanqueId, @RequestBody NivelAguaRequest request) {
-        return ResponseEntity.ok(tanqueService.registrarNivel(tanqueId, request));
+    @PutMapping("tanque/{id}")
+    public ResponseEntity<Tanque> updateTank(@PathVariable Long id, @RequestBody TanqueRequestDto dto) {
+        Tanque updated = tanqueService.actualizarTanque(id, dto);
+        return ResponseEntity.ok(updated);
     }
+    @DeleteMapping("/tanque/{id}")
+    public ResponseEntity<String> deleteTank(@PathVariable Long id) {
+        tanqueService.eliminarTanque(id);
+        return ResponseEntity.ok("Tank with ID " + id + " was successfully deleted.");
+    }
+//    @PostMapping("/tanque/{tanqueId}/calidad")
+//    public ResponseEntity<Tanque> registrarCalidad(@PathVariable Long tanqueId, @RequestBody CalidadAguaRequest request) {
+//        return ResponseEntity.ok(tanqueService.registrarCalidad(tanqueId, request));
+//    }
+
+//    @PostMapping("/tanque/{tanqueId}/nivel")
+//    public ResponseEntity<Tanque> registrarNivel(@PathVariable Long tanqueId, @RequestBody NivelAguaRequest request) {
+//        return ResponseEntity.ok(tanqueService.registrarNivel(tanqueId, request));
+//    }
 }
