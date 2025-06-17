@@ -2,6 +2,7 @@ package org.waterguard.waterguard.auth.controller;
 import org.waterguard.waterguard.auth.dto.AuthRequest;
 import org.waterguard.waterguard.auth.dto.AuthResponse;
 import org.waterguard.waterguard.auth.dto.RegisterRequest;
+import org.waterguard.waterguard.auth.dto.UsuarioUpdateDto;
 import org.waterguard.waterguard.auth.model.Usuario;
 import org.waterguard.waterguard.auth.repository.UsuarioRepository;
 import org.waterguard.waterguard.auth.service.AuthService;
@@ -25,7 +26,11 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
-
+    @PutMapping("/users/{id}")
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody UsuarioUpdateDto dto) {
+        Usuario actualizado = authService.updateUser(id, dto);
+        return ResponseEntity.ok(actualizado);
+    }
     @Autowired
     private UsuarioRepository usuarioRepository;
 

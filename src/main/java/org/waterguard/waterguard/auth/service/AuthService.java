@@ -2,6 +2,7 @@ package org.waterguard.waterguard.auth.service;
 import org.waterguard.waterguard.auth.dto.AuthRequest;
 import org.waterguard.waterguard.auth.dto.AuthResponse;
 import org.waterguard.waterguard.auth.dto.RegisterRequest;
+import org.waterguard.waterguard.auth.dto.UsuarioUpdateDto;
 import org.waterguard.waterguard.auth.jwt.JwtUtil;
 import org.waterguard.waterguard.auth.model.Usuario;
 import org.waterguard.waterguard.auth.repository.UsuarioRepository;
@@ -41,5 +42,20 @@ public class AuthService {
 
         usuarioRepository.save(nuevo);
         return "Usuario registrado correctamente";
+    }
+    public Usuario updateUser(Long id, UsuarioUpdateDto dto) {
+        Usuario user = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (dto.getEmail() != null && !dto.getEmail().isBlank()) {
+            user.setEmail(dto.getEmail());
+        }
+
+
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
+        return usuarioRepository.save(user);
     }
 }
